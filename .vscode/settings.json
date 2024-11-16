@@ -1,0 +1,10 @@
+{
+    "python.testing.pytestArgs": [
+        "--cov=sozluk",
+        "-v",
+        "--pdb",
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

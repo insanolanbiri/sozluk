@@ -1,0 +1,23 @@
+{%extends 'layout.html'%}
+{%block title%}girdi: {{entry.topic}} - {{app_name}}{%endblock%}
+
+{%block body%}
+<a href="{{ url_for('topic', name = entry.topic) }}">diger tanimlari da goster</a>
+{{render_entry(entry, topic=True)}}
+
+
+<div>
+    <h2>riskli bolge</h2>
+    <div>
+        <h3>girdiyi yok et</h3>
+        <form method="post" action="{{ url_for('del_entry') }}">
+            {{ risk.csrf_token() }}
+            {{ risk.entry_id(hidden='true', value=entry.identifier.value)}}
+            <p>{{ risk.text.label }}: {{ risk.text() }}</p>
+            <p>{{ risk.checkbox.label }}: {{ risk.checkbox() }}</p>
+            <p>{{ risk.checkbox_2.label }}: {{ risk.checkbox_2() }}</p>
+            <p>kirmizi buton: {{risk.submit(style="background-color: red")}} </p>
+        </form>
+    </div>
+</div>
+{%endblock%}

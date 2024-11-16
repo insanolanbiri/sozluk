@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+{%macro render_entry(entry, topic = False, author = True) %}
+<div class="entry">
+    {%if topic%}
+    <h3><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h3>
+
+    {%endif%}
+    <p>{{ entry.text }}</p>
+    {%if author%}
+    <p style='text-align: right;'></p>
+    {%endif%}
+    <p style='text-align: right;'>
+        {%if author%}
+        <a href="{{url_for('author', name=entry.author)}}">@{{ entry.author }}</a>,
+        {%endif%}
+        {{ entry.time(timezone).strftime("%d.%m.%Y %H.%M") }},
+        <a href="{{url_for('entry', entry_id=entry.identifier.value)}}">#{{ entry.identifier.value }}</a>
+
+    </p>
+</div>
+{%endmacro%}
+
+<head>
+    <title>{%block title%}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sozluk.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1><a class='nounder' href="{{url_for('index')}}">{{app_name}}.</a></h1>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {%if messages %}
+    <br>
+    <div class="draw margined_div" style="border-color: #dd2059; border-width: 5px;">
+        {%for i in messages%}
+        <p>- {{i}}</p>
+        {%endfor%}
+    </div>
+    <br>
+    {%endif %}
+    {% endwith %}
+
+    {%block body%}
+    {%endblock%}
+    <hr class="footer_hr">
+    <p>
+        <a style="color: black;" href="https://github.com/insanolanbiri/sozluk">{{app_name}} &lt;3 acik
+            kaynak</a>
+    </p>
+</body>
+
+</html>

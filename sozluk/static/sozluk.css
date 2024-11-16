@@ -1,0 +1,36 @@
+.footer_hr {
+    background-color: #22967f;
+    color: #22967f;
+    height: 1px;
+    margin: 2px;
+}
+
+.nounder {
+    text-decoration: none;
+}
+
+hr {
+    max-width: 1050px;
+    margin-left: 2px;
+}
+
+.margined_div {
+    padding: 10px;
+    margin: 10px;
+    max-width: 1000px;
+}
+
+
+.draw {
+    border: #22967f 2px solid;
+}
+
+.resized_text {
+    width: 550px;
+    height: 150px;
+    max-width: 100%;
+}
+
+a {
+    color: black;
+}

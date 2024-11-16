@@ -1,0 +1,50 @@
+{%extends "layout.html" %}
+{%block title%}{{app_name}}{%endblock%}
+
+{%block body%}
+<div class="margined_div">
+    <p>
+        {{app_name}}.
+    </p>
+</div>
+
+<div class="draw margined_div">
+    <h2>girdi yolla!</h2>
+    <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
+        {{ entry_form.csrf_token() }}
+        <p>{{ entry_form.topic.label }}: {{ entry_form.topic() }}</p>
+        <p>{{ entry_form.text.label }}:</p> {{ entry_form.text() }}
+        <p>{{ entry_form.author.label }}: {{ entry_form.author() }}</p>
+        <p>isiginla bizi aydinlat: {{entry_form.submit()}} </p>
+    </form>
+</div>
+<hr>
+<div class="draw margined_div">
+    <h2>guncel basliklar</h2>
+    <div>
+        {% for topic in topics -%}
+        <div>
+            <a href="{{ url_for('topic', name=topic) }}">{{topic}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="draw margined_div">
+    <h2>son yazarlar</h2>
+    <div>
+        {% for i in authors -%}
+        <div>
+            <a href="{{ url_for('author', name=i) }}">{{i}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="draw margined_div">
+    <h2>rastgele</h2>
+    {%for i in random_entries %}
+    {{render_entry(i, topic=True)}}
+    {%endfor%}
+</div>
+{%endblock%}

@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "sozluk"
+version = "0.1.0"
+description = ""
+authors = ["Eren Akgün <iobthedev@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+flask = {extras = ["async"], version = "^3.1.0"}
+flask-wtf = "^1.2.2"
+aiofile = "^3.9.0"
+waitress = "^3.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+black = "^24.10.0"
+isort = "^5.13.2"
+pytest-cov = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
+profile = "black"

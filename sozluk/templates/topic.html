@@ -1,0 +1,22 @@
+{%extends 'layout.html'%}
+{%block title%}{{topic_name}} - {{app_name}}{%endblock%}
+
+{%block body%}
+<h2>{{topic_name}}</h2>
+<div class="margined_div">
+    {% for entry in entries -%}
+    {{render_entry(entry, topic=False)}}
+    {% endfor %}
+</div>
+<br>
+<div>
+    <h4>ben de girdi ekleyeyim!</h4>
+    <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
+        {{ entry_form.csrf_token() }}
+        {{ entry_form.topic(type="hidden", value=topic_name) }}
+        <p>{{ entry_form.text.label }}: {{ entry_form.text() }}</p>
+        <p>{{ entry_form.author.label }}: {{ entry_form.author() }}</p>
+        <p>isiginla bizi aydinlat: {{entry_form.submit()}} </p>
+    </form>
+</div>
+{%endblock%}
