@@ -1,6 +1,20 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, IntegerField, StringField, SubmitField, TextAreaField
-from wtforms.validators import AnyOf, DataRequired, InputRequired, Length
+from wtforms.validators import (
+    AnyOf,
+    DataRequired,
+    InputRequired,
+    Length,
+    ValidationError,
+)
+
+
+def NotContains(substring: str, message: str = ""):
+    def validator(form, field):
+        if substring in field.data:
+            raise ValidationError(message)
+
+    return validator
 
 
 class EntryForm(FlaskForm):
@@ -21,6 +35,9 @@ class EntryForm(FlaskForm):
         [
             DataRequired("bu girdi uzaylilardan gelmis olamaz diye dusunuyorum."),
             Length(max=40, message="isim cok uzun ama."),
+            NotContains(
+                " ", message="ismine bosluk koyamiyorsun maalesef. kurallar boyle."
+            ),
         ],
     )
     submit = SubmitField("isiginla bizi aydinlat")
