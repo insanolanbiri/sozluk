@@ -121,9 +121,6 @@ async def entry(entry_id: str):
 
 @app.route("/topic/<name>")
 async def topic(name):
-    if name == "name":
-        flash("asdf")
-        abort(404)
     try:
         topic_name = TopicName(name)
     except ValueError:
