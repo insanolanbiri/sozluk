@@ -16,7 +16,7 @@
         {%if author -%}
         <a href="{{url_for('author', name=entry.author)}}">@{{ entry.author }}</a>,
         {%endif-%}
-        {{ entry.time(timezone).strftime("%d.%m.%Y%H.%M") }},
+        {{ entry.time(timezone).strftime("%d.%m.%Y %H.%M") }},
         <a href="{{url_for('entry', entry_id=entry.identifier.value)}}">#{{ entry.identifier.value }}</a>
 
     </p>
