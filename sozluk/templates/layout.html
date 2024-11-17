@@ -4,16 +4,18 @@
 <div class="entry">
     {%if topic%}
     <h3><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h3>
-
     {%endif%}
-    <p>{{ entry.text }}</p>
-    {%if author%}
-    <p style='text-align: right;'></p>
-    {%endif%}
+    {%for paragraph in entry.text.split('\r\n') -%}
+    {%if paragraph != '' -%}
+    <p style="margin: 7px">{{ paragraph }}</p>
+    {%else -%}
+    <br>
+    {%endif-%}
+    {%endfor-%}
     <p style='text-align: right;'>
-        {%if author%}
+        {%if author -%}
         <a href="{{url_for('author', name=entry.author)}}">@{{ entry.author }}</a>,
-        {%endif%}
+        {%endif-%}
         {{ entry.time(timezone).strftime("%d.%m.%Y %H.%M") }},
         <a href="{{url_for('entry', entry_id=entry.identifier.value)}}">#{{ entry.identifier.value }}</a>
 
