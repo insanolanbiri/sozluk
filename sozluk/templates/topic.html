@@ -4,13 +4,16 @@
 {%block body%}
 <h2>{{topic_name}}</h2>
 <div class="margined_div">
+    {%if not entries %}
+    kimse bu basliga girdi yollamamis...
+    {%endif%}
     {% for entry in entries -%}
     {{render_entry(entry, topic=False)}}
     {% endfor %}
 </div>
 <br>
 <div>
-    <h3>ben de bu basliga girdi ekleyeyim!</h3>
+    <h3>ben {%if entries %}de {%endif%}bu basliga girdi ekleyeyim!</h3>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
         {{ entry_form.topic(type="hidden", value=topic_name) }}
