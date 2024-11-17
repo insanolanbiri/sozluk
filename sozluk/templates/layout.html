@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-{%macro render_entry(entry, topic = False, author = True)%}
+{%macro render_entry(entry, topic = False, author = True, level=3)%}
 <div class="entry">
     {%if topic%}
-    <h3><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h3>
+    <h{{level}}><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h{{level}}>
     {%endif%}
     {%for paragraph in entry.text.render(topic_prefix='/topic/', entry_prefix='/entry/',
     author_prefix='/author/').strip().split('\r\n') -%}

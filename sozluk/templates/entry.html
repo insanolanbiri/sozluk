@@ -2,16 +2,18 @@
 {%block title%}girdi: {{entry.topic}} - {{app_name}}{%endblock%}
 
 {%block body%}
-<a href="{{ url_for('topic', name = entry.topic) }}">diger tanimlari da goster</a>
 <div class="margined_div">
-{{render_entry(entry, topic=True)}}
+    <a href="{{ url_for('topic', name = entry.topic) }}">diger tanimlari da goster</a>
+</div>
+<div class="draw margined_div">
+    {{render_entry(entry, topic=True, level = 2)}}
 </div>
 
 
 <div class="margined_div">
-    <h2>riskli bolge</h2>
+    <h3>riskli bolge</h3>
     <div>
-        <h3>girdiyi yok et</h3>
+        <h4>girdiyi yok et</h4>
         <form method="post" action="{{ url_for('del_entry') }}">
             {{ risk.csrf_token() }}
             {{ risk.entry_id(hidden='true', value=entry.identifier.value)}}
