@@ -19,7 +19,7 @@ class EntryForm(FlaskForm):
 class NukeEntryForm(FlaskForm):
     entry_id = IntegerField()
     text = StringField(
-        "girdiyi silmek istediginden eminsen 'sil' yaz", [AnyOf(("sil"))]
+        "girdiyi silmek istediginden eminsen 'sil' yaz", [AnyOf(("sil",))]
     )
     checkbox = BooleanField(
         "gercekten bu girdiyi karadelige gondermek istedigimden eminim",
