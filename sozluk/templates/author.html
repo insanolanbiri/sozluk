@@ -4,8 +4,8 @@
 {%block body%}
 <h2>@{{author}}</h2>
 <div class="margined_div">
-    {% for entry in entries -%}
+    {%for entry in entries -%}
     {{render_entry(entry, author=False, topic=True)}}
-    {% endfor %}
+    {%endfor%}
 </div>
 {%endblock%}

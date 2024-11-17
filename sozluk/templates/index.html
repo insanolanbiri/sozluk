@@ -1,4 +1,4 @@
-{%extends "layout.html" %}
+{%extends "layout.html"%}
 {%block title%}{{app_name}}{%endblock%}
 
 {%block body%}
@@ -24,28 +24,28 @@
 <div class="draw margined_div">
     <h2>guncel basliklar</h2>
     <div>
-        {% for topic in topics -%}
+        {%for topic in topics -%}
         <div>
             <a href="{{ url_for('topic', name=topic) }}">{{topic}}</a>
         </div>
-        {% endfor %}
+        {%endfor%}
     </div>
 </div>
 <hr>
 <div class="draw margined_div">
     <h2>son yazarlar</h2>
     <div>
-        {% for i in authors -%}
+        {%for i in authors -%}
         <div>
             <a href="{{ url_for('author', name=i) }}">{{i}}</a>
         </div>
-        {% endfor %}
+        {%endfor%}
     </div>
 </div>
 <hr>
 <div class="draw margined_div">
     <h2>rastgele</h2>
-    {%for i in random_entries %}
+    {%for i in random_entries%}
     {{render_entry(i, topic=True)}}
     {%endfor%}
 </div>
