@@ -5,9 +5,10 @@
     {%if topic%}
     <h3><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h3>
     {%endif%}
-    {%for paragraph in entry.text.split('\r\n') -%}
+    {%for paragraph in entry.text.render(topic_prefix='/topic/', entry_prefix='/entry/',
+    author_prefix='/author/').split('\r\n') -%}
     {%if paragraph != '' -%}
-    <p style="margin: 7px">{{ paragraph }}</p>
+    <p style="margin: 7px">{{ paragraph |safe}}</p>
     {%else -%}
     <br>
     {%endif-%}
