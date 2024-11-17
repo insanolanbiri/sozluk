@@ -157,3 +157,29 @@ async def author(name):
         abort(404)
 
     return render_template("author.html", entries=entries, author=author_name)
+
+
+@app.route("/stats")
+async def stats():
+    topic_list = await db.get_latest_topics()
+    if not topic_list:
+        first_entry = None
+        last_entry = None
+    else:
+        first_topic = topic_list[-1]
+        first_entry = (await db.get_topic(first_topic))[0]
+
+        last_topic = topic_list[0]
+        last_entry = (await db.get_topic(last_topic))[-1]
+
+    total_entry_count = db.entry_count
+    total_topic_count = db.topic_count
+    total_author_count = db.author_count
+    return render_template(
+        "stats.html",
+        first_entry=first_entry,
+        last_entry=last_entry,
+        total_entry_count=await total_entry_count,
+        total_topic_count=await total_topic_count,
+        total_author_count=await total_author_count,
+    )

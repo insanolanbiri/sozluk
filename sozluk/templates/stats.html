@@ -1,0 +1,22 @@
+{%extends 'layout.html'%}
+{%block title%}istatistikler - {{app_name}}{%endblock%}
+
+{%block body%}
+<div class="draw margined_div">
+    <h2>istatistikler</h2>
+    <dl>
+        <dt>toplam entry sayisi</dt>
+        <dd>{{total_entry_count}}</dd>
+        <dt>toplam yazar sayisi</dt>
+        <dd>{{total_author_count}}</dd>
+        <dt>toplam konu sayisi</dt>
+        <dd>{{total_topic_count}}</dd>
+        {%if first_entry-%}
+        <dt>ilk entry tarihi</dt>
+        <dd>{{first_entry.time(timezone).strftime("%d.%m.%Y %H.%M")}}</dd>
+        <dt>son entry tarihi</dt>
+        <dd>{{last_entry.time(timezone).strftime("%d.%m.%Y %H.%M")}}</dd>
+        {%endif-%}
+    </dl>
+</div>
+{%endblock%}
