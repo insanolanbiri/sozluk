@@ -71,10 +71,10 @@ async def add_entry():
 
     match result:
         case EntryAddResponse.SUCCESS:
-            flash("tebrikler! artik girdin yayinda.")
+            flash("tebrikler! artik girdin burada.")
             return redirect(url_for("entry", entry_id=entry_id.value))
         case EntryAddResponse.DEFINITION_EXISTS:
-            flash("bu tanim zaten var")
+            flash("bu tanim zaten var.")
             return redirect(url_for("topic", topic_name=sketch.topic))
         case something:
             raise NotImplementedError(something)
@@ -90,13 +90,14 @@ async def del_entry():
     try:
         entry_id = EntryID(form.entry_id.data)
     except ValueError:
+        flash("bir seyler ters gitti, silemedim.")
         return redirect(url_for("index"))
 
     result = await db.del_entry(entry_id)
 
     match result:
         case EntryDeleteResponse.SUCCESS:
-            flash("artik yok")
+            flash("artik yok.")
             return redirect(url_for("index"))
         case EntryDeleteResponse.ENTRY_NOT_FOUND:
             flash("boyle bir girdi zaten yokmus, silmeme gerek kalmadi sanirim.")
@@ -132,6 +133,9 @@ async def topic(name):
         abort(404)
 
     entries = await db.get_topic(topic_name)
+
+    # do not throw 404 even if there are no entries.
+    # since page shows an entry input field.
 
     return render_template(
         "topic.html", entries=entries, entry_form=EntryForm(), topic_name=topic_name
