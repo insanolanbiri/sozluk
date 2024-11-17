@@ -93,7 +93,7 @@ async def del_entry():
     match result:
         case EntryDeleteResponse.SUCCESS:
             flash("artik yok")
-            return url_for("index")
+            return redirect(url_for("index"))
         case EntryDeleteResponse.ENTRY_NOT_FOUND:
             flash("boyle bir girdi zaten yokmus, silmeme gerek kalmadi sanirim.")
             abort(404)
