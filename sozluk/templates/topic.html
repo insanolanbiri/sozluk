@@ -10,7 +10,7 @@
 </div>
 <br>
 <div>
-    <h4>ben de girdi ekleyeyim!</h4>
+    <h4>ben de bu basliga girdi ekleyeyim!</h4>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
         {{ entry_form.topic(type="hidden", value=topic_name) }}
