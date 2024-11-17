@@ -17,9 +17,11 @@
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
         {{ entry_form.topic(type="hidden", value=topic_name) }}
-        <p>{{ entry_form.text.label }}: {{ entry_form.text() }}</p>
-        <p>{{ entry_form.author.label }}: {{ entry_form.author() }}</p>
-        <p>isiginla bizi aydinlat: {{entry_form.submit()}} </p>
+        <dl>
+            {{ render_form_field(entry_form.text) }}
+            {{ render_form_field(entry_form.author) }}
+            {{ render_form_field(entry_form.submit, value="yolla") }}
+        </dl>
     </form>
 </div>
 {%endblock%}

@@ -53,7 +53,9 @@ async def index():
 async def add_entry():
     entry_form = EntryForm()
     if not entry_form.validate_on_submit():
-        return "nice try", 404  # FIXME: ???
+        for _, error in entry_form.errors.items():
+            flash(" ".join(error))
+        return redirect(url_for("index"))
 
     try:
         sketch = EntrySketch(
@@ -82,6 +84,8 @@ async def add_entry():
 async def del_entry():
     form = NukeEntryForm()
     if not form.validate_on_submit():
+        for _, error in form.errors.items():
+            flash(" ".join(error))
         return redirect(url_for("index"))
     try:
         entry_id = EntryID(form.entry_id.data)

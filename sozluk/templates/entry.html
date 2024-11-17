@@ -15,10 +15,12 @@
         <form method="post" action="{{ url_for('del_entry') }}">
             {{ risk.csrf_token() }}
             {{ risk.entry_id(hidden='true', value=entry.identifier.value)}}
-            <p>{{ risk.text.label }}: {{ risk.text() }}</p>
-            <p>{{ risk.checkbox.label }}: {{ risk.checkbox() }}</p>
-            <p>{{ risk.checkbox_2.label }}: {{ risk.checkbox_2() }}</p>
-            <p>kirmizi buton: {{risk.submit(style="background-color: red")}} </p>
+            <dl>
+                {{ render_form_field(risk.text)}}
+                {{ render_form_field(risk.checkbox) }}
+                {{ render_form_field(risk.checkbox_2) }}
+                {{ render_form_field(risk.submit, style="background-color: red", value="yok et") }}
+            </dl>
         </form>
     </div>
 </div>
