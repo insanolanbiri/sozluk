@@ -17,6 +17,16 @@
         <dt>son entry tarihi</dt>
         <dd>{{last_entry.time(timezone).strftime("%d.%m.%Y %H.%M")}}</dd>
         {%endif-%}
+        <dt>islemci kullanimi</dt>
+        <dd>{{cpu_percentage}}</dd>
+        <dt>islemci sayisi</dt>
+        <dd>{{cpu_count}}</dd>
+        <dt>bellek kullanimi</dt>
+        <dd>{{ram_used_megabytes}}/{{ram_total_megabytes}} megabayt (yuzde {{ram_percentage}})</dd>
+        <dt>yuk ortalamasi</dt>
+        <dd>{{load_average[0]|round(2)}}, {{load_average[1]|round(2)}}, {{load_average[2]|round(2)}}</dd>
+        <dt>isleme numarasi</dt>
+        <dd><a href="https://github.com/insanolanbiri/sozluk/commit/{{commit}}">{{commit}}</a></dd>
     </dl>
 </div>
 {%endblock%}

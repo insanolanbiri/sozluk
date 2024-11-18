@@ -1,6 +1,7 @@
 from datetime import timedelta
 from os import getenv, urandom
 
+import psutil
 from flask import Flask, abort, flash, redirect, render_template, url_for
 from flask_wtf import CSRFProtect
 
@@ -12,6 +13,8 @@ from sozluk.storage.committedmemorydb import CommittedMemoryDB
 from sozluk.topicname import TopicName
 
 timezone = timedelta(hours=3)
+
+BUILD_COMMIT = getenv("VCS_TAG", "")
 
 db = CommittedMemoryDB(getenv("DATABASE_PATH", "database.pickle"))
 
@@ -172,6 +175,15 @@ async def stats():
         last_topic = topic_list[0]
         last_entry = (await db.get_topic(last_topic))[-1]
 
+    cpu_percentage = psutil.cpu_percent(interval=0.2)
+    cpu_count = psutil.cpu_count()
+
+    mem = psutil.virtual_memory()
+    ram_total_megabytes = int(mem.total / 1024 / 1024)
+    ram_used_megabytes = ram_total_megabytes - int(mem.available / 1024 / 1024)
+    ram_percentage = mem.percent
+    load_average = psutil.getloadavg()
+
     total_entry_count = db.entry_count
     total_topic_count = db.topic_count
     total_author_count = db.author_count
@@ -182,4 +194,11 @@ async def stats():
         total_entry_count=await total_entry_count,
         total_topic_count=await total_topic_count,
         total_author_count=await total_author_count,
+        cpu_percentage=cpu_percentage,
+        cpu_count=cpu_count,
+        ram_total_megabytes=ram_total_megabytes,
+        ram_used_megabytes=ram_used_megabytes,
+        ram_percentage=ram_percentage,
+        load_average=load_average,
+        commit=BUILD_COMMIT,
     )

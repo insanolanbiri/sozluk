@@ -10,6 +10,9 @@ COPY --from=builder /venv .
 COPY . .
 VOLUME [ "/data" ]
 
+ARG VCS_TAG=unknown_docker
+ENV VCS_TAG=${VCS_TAG}
+
 ENV DATABASE_PATH='/data/database.pickle'
 EXPOSE 8080
 CMD ["./bin/python3", "sozluk/__init__.py"]
