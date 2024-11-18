@@ -3,7 +3,7 @@ import random
 from datetime import UTC, datetime
 from threading import RLock
 
-from aiofile import async_open
+import aiofiles
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import Entry, EntryID, EntrySketch
@@ -147,7 +147,7 @@ class CommittedMemoryDB(SozlukStorage):
             next_id = self.__next_id
             entries = self.__entries.copy()
 
-        async with async_open(self.__file, "wb") as f:
+        async with aiofiles.open(self.__file, "wb") as f:
             dump = pickle.dumps(
                 {
                     "next_id": next_id,
