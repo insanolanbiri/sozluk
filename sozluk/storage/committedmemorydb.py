@@ -80,7 +80,7 @@ class CommittedMemoryDB(SozlukStorage):
         return matches
 
     async def del_entry(self, entry_id: EntryID) -> EntryDeleteResponse:
-        if self.get_entry(entry_id) is None:
+        if await self.get_entry(entry_id) is None:
             return EntryDeleteResponse.ENTRY_NOT_FOUND
         with self.__db_lock:
             if self.__entries.pop(entry_id, None) is None:
