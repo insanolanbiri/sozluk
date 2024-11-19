@@ -12,6 +12,7 @@ flask-wtf = "^1.2.2"
 waitress = "^3.0.1"
 aiofiles = "^24.1.0"
 psutil = "^6.1.0"
+emoji = "^2.14.0"
 
 
 [tool.poetry.group.dev.dependencies]

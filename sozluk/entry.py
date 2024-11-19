@@ -4,6 +4,7 @@ import re
 from datetime import datetime, timedelta
 from typing import Type, TypeVar
 
+from emoji import emoji_count
 from markupsafe import escape
 
 from sozluk.authorname import AuthorName
@@ -23,6 +24,13 @@ ENTRY_REFERENCE_PARSER = {
 
 
 class EntryText(TurkishLowercasedString):
+
+    def __new__(cls, o: object = ""):
+        o = str(o)
+        print(emoji_count(o))
+        if emoji_count(o) != 0:
+            raise ValueError("emojis in an entry text is not allowed")
+        return super().__new__(cls, o)
 
     def parse(self):
         # escape for python format syntax
