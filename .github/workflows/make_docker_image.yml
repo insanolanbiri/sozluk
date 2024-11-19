@@ -20,7 +20,7 @@ jobs:
       
       - name: Find out commit sha
         id: commit
-        run: echo "sha=$(git rev-parse HEAD~)" >> $GITHUB_OUTPUT
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
