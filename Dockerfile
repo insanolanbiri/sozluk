@@ -10,7 +10,7 @@ COPY --from=builder /venv .
 COPY . .
 VOLUME [ "/data" ]
 
-ARG VCS_TAG=unknown_docker
+ARG VCS_TAG
 ENV VCS_TAG=${VCS_TAG}
 
 ENV DATABASE_PATH='/data/database.pickle'
