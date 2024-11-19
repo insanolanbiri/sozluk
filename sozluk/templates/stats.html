@@ -25,8 +25,10 @@
         <dd>{{ram_used_megabytes}}/{{ram_total_megabytes}} megabayt (yuzde {{ram_percentage}})</dd>
         <dt>yuk ortalamasi</dt>
         <dd>{{load_average[0]|round(2)}}, {{load_average[1]|round(2)}}, {{load_average[2]|round(2)}}</dd>
-        <dt>isleme numarasi</dt>
+        {%if commit-%}
+        <dt>isleme tanimlayicisi</dt>
         <dd><a href="https://github.com/insanolanbiri/sozluk/commit/{{commit}}">{{commit}}</a></dd>
+        {%endif-%}
     </dl>
 </div>
 {%endblock%}
