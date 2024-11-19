@@ -75,7 +75,7 @@ async def add_entry():
 
     match result:
         case EntryAddResponse.SUCCESS:
-            flash("tebrikler! artik girdin burada.")
+            flash("tebrikler! artik girdin yayinda.")
             return redirect(url_for("entry", entry_id=entry_id.value))
         case EntryAddResponse.DEFINITION_EXISTS:
             flash("bu tanim zaten var.")
