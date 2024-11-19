@@ -40,9 +40,9 @@ async def error404(error):
 
 @app.route("/")
 async def index():
-    trending_topics = db.get_latest_topics(limit=20)
-    latest_authors = db.get_latest_authors(limit=20)
-    random_entries = db.get_random_entries(limit=10)
+    trending_topics = db.get_latest_topics(limit=None)
+    latest_authors = db.get_latest_authors(limit=None)
+    random_entries = db.get_random_entries(limit=12)
 
     return render_template(
         "index.html",
