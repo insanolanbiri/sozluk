@@ -79,7 +79,7 @@ async def add_entry():
             return redirect(url_for("entry", entry_id=entry_id.value))
         case EntryAddResponse.DEFINITION_EXISTS:
             flash("bu tanim zaten var.")
-            return redirect(url_for("topic", topic_name=sketch.topic))
+            return redirect(url_for("topic", name=sketch.topic))
         case something:
             raise NotImplementedError(something)
 
