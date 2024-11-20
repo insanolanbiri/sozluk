@@ -40,6 +40,10 @@ hr {
     max-width: 1000px;
 }
 
+div.scrollable {
+    overflow-y: scroll;
+    max-height: 400px;
+}
 
 .draw {
     border: #22967f 2px solid;
