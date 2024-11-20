@@ -2,8 +2,8 @@
 {%block title%}{{topic_name}} - {{app_name}}{%endblock%}
 
 {%block body%}
-<h2>{{topic_name}}</h2>
 <div class="margined_div">
+    <h2>{{topic_name}}</h2>
     {%if not entries%}
     kimse bu basliga girdi yollamamis...
     {%endif%}
@@ -12,7 +12,7 @@
     {%endfor%}
 </div>
 <br>
-<div>
+<div class="margined_div">
     <h3>ben {%if entries%}de {%endif%}bu basliga girdi ekleyeyim!</h3>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
