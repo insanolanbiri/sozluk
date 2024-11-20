@@ -2,7 +2,15 @@ from datetime import timedelta
 from os import getenv, urandom
 
 import psutil
-from flask import Flask, abort, flash, redirect, render_template, url_for
+from flask import (
+    Flask,
+    abort,
+    flash,
+    redirect,
+    render_template,
+    send_from_directory,
+    url_for,
+)
 from flask_wtf import CSRFProtect
 
 from sozluk.authorname import AuthorName
@@ -36,6 +44,11 @@ def inject_constants():
 @app.errorhandler(404)
 async def error404(error):
     return render_template("404.html"), 404
+
+
+@app.route("/robots.txt")
+async def robots():
+    return send_from_directory(app.static_folder, "robots.txt")
 
 
 @app.route("/")
