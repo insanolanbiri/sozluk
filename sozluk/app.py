@@ -55,7 +55,7 @@ async def robots():
 async def index():
     trending_topics = db.get_latest_topics(limit=None)
     latest_authors = db.get_latest_authors(limit=None)
-    random_entries = db.get_random_entries(limit=12)
+    random_entries = db.get_random_entries(limit=10)
 
     return render_template(
         "index.html",
