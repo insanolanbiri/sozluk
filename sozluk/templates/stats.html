@@ -5,16 +5,16 @@
 <div class="draw margined_div">
     <h2>istatistikler</h2>
     <dl class="grid">
-        <dt>toplam entry sayisi</dt>
+        <dt>toplam girdi sayisi</dt>
         <dd>{{total_entry_count}}</dd>
         <dt>toplam yazar sayisi</dt>
         <dd>{{total_author_count}}</dd>
         <dt>toplam konu sayisi</dt>
         <dd>{{total_topic_count}}</dd>
         {%if first_entry-%}
-        <dt>ilk entry tarihi</dt>
+        <dt>ilk girdi tarihi</dt>
         <dd>{{first_entry.time(timezone).strftime("%d.%m.%Y %H.%M")}}</dd>
-        <dt>son entry tarihi</dt>
+        <dt>son girdi tarihi</dt>
         <dd>{{last_entry.time(timezone).strftime("%d.%m.%Y %H.%M")}}</dd>
         {%endif-%}
         <dt>islemci kullanimi</dt>
