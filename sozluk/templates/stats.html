@@ -27,7 +27,7 @@
         <dd>{{load_average[0]|round(2)}} {{load_average[1]|round(2)}} {{load_average[2]|round(2)}}</dd>
         {%if commit-%}
         <dt>isleme tanimlayicisi</dt>
-        <dd><a href="https://github.com/insanolanbiri/sozluk/commit/{{commit}}">{{commit}}</a></dd>
+        <dd><a href="https://github.com/insanolanbiri/sozluk/commit/{{commit}}">{{commit[:7]}}</a></dd>
         {%endif-%}
     </dl>
 </div>
