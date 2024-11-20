@@ -22,7 +22,7 @@
         <dt>islemci sayisi</dt>
         <dd>{{cpu_count}}</dd>
         <dt>bellek kullanimi</dt>
-        <dd>{{ram_used_megabytes}}/{{ram_total_megabytes}} megabayt (yuzde {{ram_percentage}})</dd>
+        <dd>{{ram_used_megabytes}}/{{ram_total_megabytes}} megabayt (%{{ram_percentage}})</dd>
         <dt>yuk ortalamasi</dt>
         <dd>{{load_average[0]|round(2)}} {{load_average[1]|round(2)}} {{load_average[2]|round(2)}}</dd>
         {%if commit-%}
