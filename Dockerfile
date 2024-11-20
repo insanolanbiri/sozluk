@@ -2,11 +2,12 @@ FROM python:3.13-slim AS builder
 WORKDIR /src
 RUN pip install poetry poetry-plugin-bundle --no-cache-dir
 COPY . .
-RUN poetry bundle venv --no-cache --no-interaction --without=dev /venv
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+RUN poetry install --no-cache --no-ansi --no-interaction --without=dev
 
 FROM python:3.13-slim
 WORKDIR /app
-COPY --from=builder /venv .
+COPY --from=builder /src/.venv .
 COPY . .
 VOLUME [ "/data" ]
 
