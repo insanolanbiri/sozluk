@@ -19,7 +19,7 @@ ENTRY_REFERENCE_PARSER = {
     "(bkz: {})": re.compile(r"\(bkz: ((?:[#@]?[a-zığüşöç \d])+)?\)"),
     "(ayrica bkz: {})": re.compile(r"\(ayrica bkz: ((?:[#@]?[a-zığüşöç \d])+)?\)"),
     "(ayrıca bkz: {})": re.compile(r"\(ayrıca bkz: ((?:[#@]?[a-zığüşöç \d])+)?\)"),
-    "{}": re.compile(r"`([#@]?[a-z \d]+)?`"),
+    "{}": re.compile(r"`([#@]?[a-zığüşöç \d]+)?`"),
 }
 
 
