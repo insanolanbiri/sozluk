@@ -27,7 +27,6 @@ class EntryText(TurkishLowercasedString):
 
     def __new__(cls, o: object = ""):
         o = str(o)
-        print(emoji_count(o))
         if emoji_count(o) != 0:
             raise ValueError("emojis in an entry text is not allowed")
         return super().__new__(cls, o)
