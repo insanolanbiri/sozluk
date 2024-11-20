@@ -4,7 +4,7 @@ WORKDIR /app
 RUN pip install poetry --no-cache-dir
 
 RUN mkdir sozluk
-RUn touch sozluk/__init__.py
+RUN touch sozluk/__init__.py
 RUN touch README.md
 COPY pyproject.toml .
 
