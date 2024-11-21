@@ -215,3 +215,8 @@ async def stats():
         load_average=load_average,
         commit=BUILD_COMMIT,
     )
+
+
+@app.route("/theemoji")
+async def theemoji():
+    return render_template("theemoji.html")
