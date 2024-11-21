@@ -220,3 +220,8 @@ async def stats():
 @app.route("/theemoji")
 async def theemoji():
     return render_template("theemoji.html")
+
+
+@app.route("/about")
+async def about():
+    return render_template("about.html")
