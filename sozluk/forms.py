@@ -42,12 +42,18 @@ class EntryForm(FlaskForm):
     )
     submit = SubmitField("isiginla bizi aydinlat")
 
+ENTRY_DELETE_CONFIRMATION = "lütfen siler misin canım benim"
 
 class NukeEntryForm(FlaskForm):
     entry_id = IntegerField()
     text = StringField(
-        "girdiyi silmek istediginden eminsen 'sil' yaz",
-        [AnyOf(("sil",), "sil yazmadin, ben de silmedim kaptanim.")],
+        f'girdiyi silmek istediginden eminsen "{ENTRY_DELETE_CONFIRMATION}" yaz',
+        [
+            AnyOf(
+                (ENTRY_DELETE_CONFIRMATION,),
+                f'"{ENTRY_DELETE_CONFIRMATION}" yazmadin, ben de silmedim kaptanim.',
+            )
+        ],
     )
     checkbox = BooleanField(
         "gercekten bu girdiyi karadelige gondermek istedigimden eminim",
