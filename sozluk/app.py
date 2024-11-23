@@ -12,19 +12,22 @@ from flask import (
     url_for,
 )
 from flask_wtf import CSRFProtect
+from sqlalchemy import create_engine
 
 from sozluk.authorname import AuthorName
-from sozluk.entry import Entry, EntryID, EntrySketch, EntryText
+from sozluk.entry import EntryID, EntrySketch, EntryText
 from sozluk.forms import EntryForm, NukeEntryForm
 from sozluk.storage import EntryAddResponse, EntryDeleteResponse
-from sozluk.storage.committedmemorydb import CommittedMemoryDB
+from sozluk.storage.sqlalchemydatabase import SQLAlchemyDatabase
 from sozluk.topicname import TopicName
 
 timezone = timedelta(hours=3)
 
 BUILD_COMMIT = getenv("VCS_TAG", "")
 
-db = CommittedMemoryDB(getenv("DATABASE_PATH", "database.pickle"))
+url = getenv("DATABASE_URL", "sqlite:///sozluk.sqlite")
+engine = create_engine(url)
+db = SQLAlchemyDatabase(engine)
 
 app = Flask(__name__)
 
