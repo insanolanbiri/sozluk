@@ -14,16 +14,16 @@
 <br>
 <div class="margined_div">
     <h3>ben {%if entries%}de {%endif%}bu basliga girdi ekleyeyim!</h3>
+        <p>girdilerinde kucuk bir cocuk gibi davranma. (ayrica bkz: <a
+                href="{{url_for('topic', name='sozluk yazarlarından beklenenler' )}}">sozluk yazarlarından beklenenler</a>)</p>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
         {{ entry_form.topic(type="hidden", value=topic_name) }}
         <dl>
             {{ render_form_field(entry_form.text) }}
             {{ render_form_field(entry_form.author) }}
-            <p>girdilerinde kucuk bir cocuk gibi davranma. (ayrica bkz: <a
-                    href="{{url_for('topic', name='sozluk yazarlarından beklenenler' )}}">sozluk yazarlarından beklenenler</a>)</p>
             {{ render_form_field(entry_form.submit, value="yolla") }}
-        </dl>
+            </dl>
     </form>
 </div>
 {%endblock%}

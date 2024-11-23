@@ -22,10 +22,10 @@
             {{ render_form_field(entry_form.topic)}}
             {{ render_form_field(entry_form.text)}}
             {{ render_form_field(entry_form.author)}}
+            {{ render_form_field(entry_form.submit, value="yolla")}}
+            </dl>
             <p>girdilerinde kucuk bir cocuk gibi davranma. (ayrica bkz: <a
                     href="{{url_for('topic', name='sozluk yazarlarından beklenenler' )}}">sozluk yazarlarından beklenenler</a>)</p>
-            {{ render_form_field(entry_form.submit, value="yolla")}}
-        </dl>
     </form>
 </div>
 <hr>
