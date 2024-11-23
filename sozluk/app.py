@@ -58,14 +58,12 @@ async def robots():
 async def index():
     trending_topics = db.get_latest_topics(limit=None)
     latest_authors = db.get_latest_authors(limit=None)
-    random_entries = db.get_random_entries(limit=10)
 
     return render_template(
         "index.html",
         entry_form=EntryForm(),
         topics=await trending_topics,
         authors=await latest_authors,
-        random_entries=await random_entries,
     )
 
 
@@ -228,3 +226,10 @@ async def theemoji():
 @app.route("/about")
 async def about():
     return render_template("about.html")
+
+
+@app.route("/random")
+async def random():
+    random_entries = db.get_random_entries(limit=10)
+
+    return render_template("random.html", random_entries=await random_entries)

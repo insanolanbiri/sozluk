@@ -1,0 +1,11 @@
+{%extends 'layout.html'%}
+{%block title%}rastgele - {{app_name}}{%endblock%}
+
+{%block body%}
+<h2>rastgele</h2>
+<div class="draw margined_div">
+    {%for i in random_entries%}
+    {{render_entry(i, topic=True)}}
+    {%endfor%}
+</div>
+{%endblock%}

@@ -50,11 +50,7 @@
         {%endfor%}
     </div>
 </div>
-<hr>
 <div class="draw margined_div">
-    <h2>rastgele</h2>
-    {%for i in random_entries%}
-    {{render_entry(i, topic=True)}}
-    {%endfor%}
+    <h2><a href="{{url_for('random')}}">rastgele</a></h2>
 </div>
 {%endblock%}
