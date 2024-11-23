@@ -23,5 +23,6 @@ ARG VCS_TAG
 ENV VCS_TAG=${VCS_TAG}
 
 ENV DATABASE_PATH='/data/database.pickle'
+ENV DATABASE_URL='sqlite:////data/sozluk.sqlite'
 EXPOSE 8080
 CMD [".venv/bin/python3", "sozluk/__init__.py"]
