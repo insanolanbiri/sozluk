@@ -55,7 +55,6 @@ def add_entry(e):
 for i in range(1, next_id):
     entry = old_entries.get(EntryID(i))
     if entry is None:
-        print(i)
         create_dummy_entry()
         continue
     add_entry(entry)
