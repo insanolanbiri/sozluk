@@ -45,6 +45,9 @@ div.scrollable {
     max-height: 400px;
 }
 
+div.list div {
+    margin-top: 5px;
+}
 .draw {
     border: #22967f 2px solid;
 }
