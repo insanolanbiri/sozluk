@@ -40,7 +40,7 @@ class EntryForm(FlaskForm):
             ),
         ],
     )
-    submit = SubmitField("isiginla bizi aydinlat")
+    submit = SubmitField("isiginla bizi aydinlat", render_kw={"value": "yolla"})
 
 ENTRY_DELETE_CONFIRMATION = "lütfen siler misin canım benim"
 
@@ -62,7 +62,10 @@ class NukeEntryForm(FlaskForm):
     checkbox_2 = BooleanField(
         "burayi okuyorsan bu secenegi isaretleme", [AnyOf((False,), "yemezler.")]
     )
-    submit = SubmitField("kirmizi buton")
+    submit = SubmitField(
+        "kirmizi buton",
+        render_kw={"style": "background-color: red;", "value": "yok et"},
+    )
 
 
 class SearchForm(FlaskForm):
@@ -72,4 +75,5 @@ class SearchForm(FlaskForm):
     query = StringField(
         "baslik ara",
         [DataRequired("akil fikir"), Length(min=3, max=50, message="uzunluk kotu.")],
+        render_kw={"placeholder": "tek bir anahtar kelime"},
     )
