@@ -204,9 +204,9 @@ class SQLAlchemyDatabase(SozlukStorage):
     ) -> list[TopicName]:
         with self.Session() as session:
             topics = session.scalars(
-                select(SQLAlchemyTopic.name).where(
-                    SQLAlchemyTopic.name.like(rf"%{query}%")
-                )
+                select(SQLAlchemyTopic.name)
+                .where(SQLAlchemyTopic.name.like(rf"%{query}%"))
+                .order_by(SQLAlchemyTopic.name)
             )
 
             return list(map(TopicName, topics))
