@@ -63,3 +63,13 @@ class NukeEntryForm(FlaskForm):
         "burayi okuyorsan bu secenegi isaretleme", [AnyOf((False,), "yemezler.")]
     )
     submit = SubmitField("kirmizi buton")
+
+
+class SearchForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    query = StringField(
+        "baslik ara",
+        [DataRequired("akil fikir"), Length(min=3, max=50, message="uzunluk kotu.")],
+    )

@@ -8,6 +8,7 @@ from flask import (
     flash,
     redirect,
     render_template,
+    request,
     send_from_directory,
     url_for,
 )
@@ -16,10 +17,11 @@ from sqlalchemy import create_engine
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import EntryID, EntrySketch, EntryText
-from sozluk.forms import EntryForm, NukeEntryForm
+from sozluk.forms import EntryForm, NukeEntryForm, SearchForm
 from sozluk.storage import EntryAddResponse, EntryDeleteResponse
 from sozluk.storage.sqlalchemydatabase import SQLAlchemyDatabase
 from sozluk.topicname import TopicName
+from sozluk.turkishlowercasedstring import TurkishLowercasedString
 
 timezone = timedelta(hours=3)
 
@@ -62,6 +64,7 @@ async def index():
     return render_template(
         "index.html",
         entry_form=EntryForm(),
+        search_form=SearchForm(),
         topics=await trending_topics,
         authors=await latest_authors,
     )
@@ -233,3 +236,22 @@ async def random():
     random_entries = db.get_random_entries(limit=10)
 
     return render_template("random.html", random_entries=await random_entries)
+
+
+@app.route("/search")
+async def search():
+    form = SearchForm(request.args)
+    if not form.validate():
+        for _, error in form.errors.items():
+            flash(" ".join(error))
+        return redirect(url_for("index"))
+
+    query = form.query.data
+
+    query = TurkishLowercasedString(query)
+
+    topics = db.topic_search_basic(query)
+
+    return render_template(
+        "search.html", result_topics=await topics, query=query, search_form=form
+    )
