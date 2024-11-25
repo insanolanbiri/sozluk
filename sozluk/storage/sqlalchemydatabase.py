@@ -243,39 +243,3 @@ class SQLAlchemyDatabase(SozlukStorage):
                 select(SQLAlchemyEntry).order_by(sqlalchemy.func.random()).limit(limit)
             )
             return list(map(lambda row: row.to_Entry(), rows))
-
-
-async def main():
-    engine = sqlalchemy.create_engine("sqlite://", echo=True)
-
-    db = SQLAlchemyDatabase(engine)
-
-    resp, ident = await db.add_entry(
-        EntrySketch(
-            topic=TopicName("can sikintisi"),
-            author=AuthorName("eren"),
-            text=EntryText("yasadigim."),
-        )
-    )
-
-    entry = await db.get_entry(ident)
-
-    print(entry)
-    print(await db.author_count)
-
-    entries = await db.get_topic(TopicName("can sikintisi"))
-
-    print(await db.get_latest_authors())
-
-    print(entries)
-
-    print(await db.del_entry(EntryID(15)))
-    print(await db.del_entry(ident))
-    print(entry)
-
-    entries = await db.get_topic(TopicName("can sikintisi"))
-
-    print(entries)
-    print(await db.author_count)
-
-    engine.dispose()
