@@ -244,7 +244,7 @@ async def search():
             flash(" ".join(error))
         return redirect(url_for("index"))
 
-    query = form.query.data
+    query = form.query.data.strip()
 
     query = TurkishLowercasedString(query)
 
