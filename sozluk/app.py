@@ -236,14 +236,16 @@ async def random():
 @app.route("/search")
 async def search():
     form = SearchForm(request.args)
+
+    if form.query.data is not None:
+        form.query.data = form.query.data.strip()
+
     if not form.validate():
         for _, error in form.errors.items():
             flash(" ".join(error))
         return redirect(url_for("index"))
 
-    query = form.query.data.strip()
-
-    query = TurkishLowercasedString(query)
+    query = TurkishLowercasedString(form.query.data)
 
     topics = db.topic_search_basic(query)
 
