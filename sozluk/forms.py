@@ -1,5 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, IntegerField, StringField, SubmitField, TextAreaField
+from wtforms import (
+    BooleanField,
+    IntegerField,
+    RadioField,
+    StringField,
+    SubmitField,
+    TextAreaField,
+)
 from wtforms.validators import (
     AnyOf,
     DataRequired,
@@ -7,6 +14,8 @@ from wtforms.validators import (
     Length,
     ValidationError,
 )
+
+from sozluk.themes import THEMES
 
 
 def NotContains(substring: str, message: str = ""):
@@ -40,7 +49,9 @@ class EntryForm(FlaskForm):
             ),
         ],
     )
-    submit = SubmitField("isiginla bizi aydinlat", render_kw={"value": "yolla"})
+    submit = SubmitField(
+        "isiginla bizi aydinlat", render_kw={"value": "yolla", "class": "entrysubmit"}
+    )
 
 ENTRY_DELETE_CONFIRMATION = "lütfen siler misin canım benim"
 
@@ -64,7 +75,7 @@ class NukeEntryForm(FlaskForm):
     )
     submit = SubmitField(
         "kirmizi buton",
-        render_kw={"style": "background-color: red;", "value": "yok et"},
+        render_kw={"class": "red_button", "value": "yok et"},
     )
 
 
@@ -80,3 +91,11 @@ class SearchForm(FlaskForm):
             "enterkeyhint": "search",
         },
     )
+
+
+class ThemeForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    theme = RadioField("tema", [], choices=THEMES.keys())
+    submit = SubmitField("okudum onayliyorum", render_kw={"value": "son kararim"})

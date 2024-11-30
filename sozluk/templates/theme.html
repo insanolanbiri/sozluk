@@ -1,0 +1,13 @@
+{%extends 'layout.html'-%}
+{%block title-%}tema - {{app_name}}{%endblock-%}
+
+{%block body-%}
+<h2>tema sec!</h2>
+<div class="draw margined_div">
+    <form action="{{url_for('theme')}}" method="post">
+        {{render_form_field(form.theme)}}
+        {{render_form_field(form.submit)}}
+
+    </form>
+</div>
+{%endblock-%}

@@ -61,3 +61,19 @@ div.list div {
 a {
     color: black;
 }
+.error {
+    border-color: #dd2059;
+    border-width: 5px;
+}
+
+.red_button {
+    background-color: red;
+}
+
+input[type="submit"] {
+    border-radius: 3px;
+}
+
+.entrysubmit {
+    font-size: 16pt;
+}

@@ -10,6 +10,7 @@ from flask import (
     render_template,
     request,
     send_from_directory,
+    session,
     url_for,
 )
 from flask_wtf import CSRFProtect
@@ -17,9 +18,10 @@ from sqlalchemy import create_engine
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import EntryID, EntrySketch, EntryText
-from sozluk.forms import EntryForm, NukeEntryForm, SearchForm
+from sozluk.forms import EntryForm, NukeEntryForm, SearchForm, ThemeForm
 from sozluk.storage import EntryAddResponse, EntryDeleteResponse
 from sozluk.storage.sqlalchemydatabase import SQLAlchemyDatabase
+from sozluk.themes import DEFAULT_THEME, THEMES
 from sozluk.topicname import TopicName
 from sozluk.turkishlowercasedstring import TurkishLowercasedString
 
@@ -44,6 +46,7 @@ def inject_constants():
         app_name="sozluk",
         timezone=timezone,
         commit=BUILD_COMMIT,
+        theme_stylesheet=THEMES.get(session.get("theme", DEFAULT_THEME)),
     )
 
 
@@ -286,3 +289,14 @@ async def topics():
         abort(404)
 
     return render_template("topics.html", topics=latest_topics, page=page)
+
+
+@app.route("/theme", methods=["GET", "POST"])
+@csrf.exempt
+async def theme():
+    form = ThemeForm()
+    if "theme" not in session:
+        session["theme"] = DEFAULT_THEME
+    if form.validate_on_submit():
+        session["theme"] = form.theme.data
+    return render_template("theme.html", form=ThemeForm(theme=session["theme"]))
