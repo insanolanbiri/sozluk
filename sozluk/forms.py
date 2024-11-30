@@ -76,7 +76,7 @@ class SearchForm(FlaskForm):
         "baslik ara",
         [DataRequired("akil fikir"), Length(min=3, max=50, message="uzunluk kotu.")],
         render_kw={
-            "placeholder": "tek bir anahtar kelime",
+            "placeholder": "baslik kesiti",
             "enterkeyhint": "search",
         },
     )
