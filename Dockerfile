@@ -26,4 +26,4 @@ ENV DATABASE_URL='sqlite:////data/sozluk.sqlite'
 ENV THREADS=''
 
 EXPOSE 8080
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
