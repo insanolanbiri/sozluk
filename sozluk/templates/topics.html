@@ -1,0 +1,15 @@
+{%extends 'layout.html'-%}
+{%block title-%}son basliklar - {{app_name}}{%endblock-%}
+
+{%block body-%}
+<h2>son basliklar</h2>
+<div class="draw margined_div">
+    <div class="list">
+        {%for i in topics -%}
+        <div>
+            <a href="{{ url_for('topic', name=i) }}">{{i}}</a>
+        </div>
+        {%endfor-%}
+    </div>
+</div>
+{%endblock-%}

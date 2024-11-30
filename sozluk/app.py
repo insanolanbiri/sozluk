@@ -58,13 +58,10 @@ async def robots():
 
 @app.route("/")
 async def index():
-    trending_topics = db.get_latest_topics(limit=None)
-
     return render_template(
         "index.html",
         entry_form=EntryForm(),
         search_form=SearchForm(),
-        topics=await trending_topics,
     )
 
 
@@ -260,3 +257,10 @@ async def authors():
     latest_authors = db.get_latest_authors(limit=None)
 
     return render_template("authors.html", authors=await latest_authors)
+
+
+@app.route("/topics")
+async def topics():
+    latest_topics = db.get_latest_topics(limit=None)
+
+    return render_template("topics.html", topics=await latest_topics)
