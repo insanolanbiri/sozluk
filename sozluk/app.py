@@ -35,6 +35,8 @@ db = SQLAlchemyDatabase(engine)
 
 app = Flask(__name__)
 
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 10800
+
 
 app.secret_key = urandom(32)
 csrf = CSRFProtect(app)
