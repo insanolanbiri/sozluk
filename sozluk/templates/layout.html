@@ -41,7 +41,7 @@
 {%endmacro-%}
 
 <head>
-    <title>{%block title-%}{%endblock-%}</title>
+    <title>{%if commit=='development'-%}gelistirme;{%endif-%}{%block title-%}{%endblock-%}</title>
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sozluk.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,8 @@
 </head>
 
 <body>
-    <h1><a class='nounder' href="{{url_for('index')}}">{{app_name}}.</a></h1>
+    <h1><a class='nounder' href="{{url_for('index')}}">{{app_name}}.{%if commit=='development'%} gelistirme
+            surecinde.{%endif-%}</a></h1>
     <hr>
     {%with messages = get_flashed_messages()-%}
     {%if messages-%}

@@ -43,6 +43,7 @@ def inject_constants():
     return dict(
         app_name="sozluk",
         timezone=timezone,
+        commit=BUILD_COMMIT,
     )
 
 
@@ -212,7 +213,6 @@ async def stats():
         ram_used_megabytes=ram_used_megabytes,
         ram_percentage=ram_percentage,
         load_average=load_average,
-        commit=BUILD_COMMIT,
     )
 
 
