@@ -211,12 +211,15 @@ class SQLAlchemyDatabase(SozlukStorage):
 
             return list(map(TopicName, topics))
 
-    async def get_latest_authors(self, limit: int | None = None) -> list[AuthorName]:
+    async def get_latest_authors(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> list[AuthorName]:
         with self.Session() as session:
             authors = session.scalars(
                 sqlalchemy.select(SQLAlchemyEntry.author_name)
                 .distinct()
                 .order_by(SQLAlchemyEntry.identifier.desc())
+                .offset(offset)
                 .limit(limit)
             )
 
@@ -224,12 +227,15 @@ class SQLAlchemyDatabase(SozlukStorage):
 
             return authors
 
-    async def get_latest_topics(self, limit: int | None = None) -> list[TopicName]:
+    async def get_latest_topics(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> list[TopicName]:
         with self.Session() as session:
             topics = session.scalars(
                 select(SQLAlchemyEntry.topic_name)
                 .distinct()
                 .order_by(SQLAlchemyEntry.identifier.desc())
+                .offset(offset)
                 .limit(limit)
             )
 

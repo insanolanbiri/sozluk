@@ -46,11 +46,15 @@ class SozlukStorage(ABC):
         pass
 
     @abstractmethod
-    async def get_latest_authors(self, limit: int | None = None) -> list[AuthorName]:
+    async def get_latest_authors(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> list[AuthorName]:
         pass
 
     @abstractmethod
-    async def get_latest_topics(self, limit: int | None = None) -> list[TopicName]:
+    async def get_latest_topics(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> list[TopicName]:
         pass
 
     @property
