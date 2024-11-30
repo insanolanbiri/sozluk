@@ -1,8 +1,8 @@
 {%extends 'layout.html'-%}
-{%block title-%}son basliklar - {{app_name}}{%endblock-%}
+{%block title-%}basliklar: sayfa {{page}} - {{app_name}}{%endblock-%}
 
 {%block body-%}
-<h2>son basliklar</h2>
+<h2>basliklar</h2>
 <div class="draw margined_div">
     <div class="list">
         {%for i in topics -%}
@@ -12,4 +12,11 @@
         {%endfor-%}
     </div>
 </div>
+    <div class="margined_div">
+        <p>su anda {{page}}. sayfadasin.</p>
+        <p>
+            <a href="?page={{page+1}}">sonraki sayfa</a>{%if page != 1%} <a href="?page={{page-1}}">onceki
+                sayfa</a>{%endif-%}
+        </p>
+    </div>
 {%endblock-%}

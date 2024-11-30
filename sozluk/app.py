@@ -263,6 +263,26 @@ async def authors():
 
 @app.route("/topics")
 async def topics():
-    latest_topics = db.get_latest_topics(limit=None)
+    page = request.args.get("page", "1")
 
-    return render_template("topics.html", topics=await latest_topics)
+    try:
+        page = int(page)
+    except ValueError:
+        flash("kotu sayfa")
+        return redirect(url_for("topics"))
+
+    if page <= 0:
+        flash("kucuk sayfa. seni gidi seni!")
+        return redirect(url_for("topics"))
+
+    topics_per_page = 10
+
+    latest_topics = await db.get_latest_topics(
+        offset=(page - 1) * topics_per_page, limit=topics_per_page
+    )
+
+    if not latest_topics:
+        flash("cok gittin")
+        abort(404)
+
+    return render_template("topics.html", topics=latest_topics, page=page)
