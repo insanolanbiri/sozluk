@@ -1,7 +1,7 @@
-{%extends 'layout.html'%}
-{%block title%}el feneri: {{query}} - {{app_name}}{%endblock%}
+{%extends 'layout.html'-%}
+{%block title-%}el feneri: {{query}} - {{app_name}}{%endblock-%}
 
-{%block body%}
+{%block body-%}
 <h2>el feneri</h2>
 <div class="margined_div">
     <form method="get" action="{{url_for('search')}}">
@@ -14,7 +14,7 @@
     <h3>ara: {{query}}</h3>
     {%if result_topics-%}
     <div class="list">
-        {%for topic in result_topics%}
+        {%for topic in result_topics-%}
         <div>
             <a href="{{ url_for('topic', name=topic) }}">{{topic}}</a>
         </div>
@@ -24,4 +24,4 @@
     <p>aydinlatacak hicbir sey yok ki.</p>
     {%endif-%}
 </div>
-{%endblock%}
+{%endblock-%}

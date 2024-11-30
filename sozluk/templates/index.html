@@ -1,7 +1,7 @@
-{%extends "layout.html"%}
-{%block title%}{{app_name}}{%endblock%}
+{%extends "layout.html"-%}
+{%block title-%}{{app_name}}{%endblock-%}
 
-{%block body%}
+{%block body-%}
 <div class="margined_div">
     <p>{{app_name}}. beklenmedik derecede serbest bir ortam.</p>
     <p>bu sayfaya gelen herkesin (sen dahil! yasasin!) istedigi konu hakkinda istedigi isim (genclerin tabiri ile
@@ -45,7 +45,7 @@
         <div>
             <a href="{{ url_for('topic', name=topic) }}">{{topic}}</a>
         </div>
-        {%endfor%}
+        {%endfor-%}
     </div>
 </div>
 <hr>
@@ -53,4 +53,4 @@
     <h2><a href="{{url_for('random')}}">rastgele</a></h2>
     <h2><a href="{{url_for('authors')}}">yazarlar</a></h2>
 </div>
-{%endblock%}
+{%endblock-%}

@@ -1,7 +1,7 @@
-{%extends 'layout.html'%}
-{%block title%}yazarlar - {{app_name}}{%endblock%}
+{%extends 'layout.html'-%}
+{%block title-%}yazarlar - {{app_name}}{%endblock-%}
 
-{%block body%}
+{%block body-%}
 <h2>yazarlar</h2>
 <div class="draw margined_div">
     <div class="list">
@@ -9,7 +9,7 @@
         <div>
             <a href="{{ url_for('author', name=i) }}">{{i}}</a>
         </div>
-        {%endfor%}
+        {%endfor-%}
     </div>
 </div>
-{%endblock%}
+{%endblock-%}

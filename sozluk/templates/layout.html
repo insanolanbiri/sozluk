@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-{%macro render_entry(entry, topic = False, author = True, level=3)%}
+{%macro render_entry(entry, topic = False, author = True, level=3)-%}
 <div class="entry">
-    {%if topic%}
+    {%if topic-%}
     <h{{level}}><a href="{{url_for('topic', name=entry.topic)}}">{{entry.topic}}</a></h{{level}}>
-    {%endif%}
+    {%endif-%}
     {%for paragraph in entry.text.render(topic_prefix='/topic/', entry_prefix='/entry/',
     author_prefix='/author/').strip().split('\r\n') -%}
     {%if paragraph != '' -%}
@@ -22,26 +22,26 @@
 
     </p>
 </div>
-{%endmacro%}
+{%endmacro-%}
 
-{%macro render_form_field(field)%}
+{%macro render_form_field(field)-%}
 <dt>{{field.label}}:</dt>
 <dd>
     {{ field(**kwargs) }}
 
-    {%if field.errors%}
+    {%if field.errors-%}
     <ul>
-        {%for e in field.errors%}
+        {%for e in field.errors-%}
         <li>{{e}}</li>
-        {%endfor%}
+        {%endfor-%}
     </ul>
-    {%endif%}
+    {%endif-%}
 
 </dd>
-{%endmacro%}
+{%endmacro-%}
 
 <head>
-    <title>{%block title%}{%endblock%}</title>
+    <title>{%block title-%}{%endblock-%}</title>
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sozluk.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,20 +51,20 @@
 <body>
     <h1><a class='nounder' href="{{url_for('index')}}">{{app_name}}.</a></h1>
     <hr>
-    {%with messages = get_flashed_messages()%}
-    {%if messages%}
+    {%with messages = get_flashed_messages()-%}
+    {%if messages-%}
     <br>
     <div class="draw margined_div" style="border-color: #dd2059; border-width: 5px;">
-        {%for i in messages%}
+        {%for i in messages-%}
         <p>- {{i}}</p>
-        {%endfor%}
+        {%endfor-%}
     </div>
     <br>
-    {%endif%}
-    {%endwith%}
+    {%endif-%}
+    {%endwith-%}
 
-    {%block body%}
-    {%endblock%}
+    {%block body-%}
+    {%endblock-%}
     <hr class="footer_hr">
     <p>
         <a href="{{url_for('about')}}">hakkinda</a>&emsp;<a href="https://github.com/insanolanbiri/sozluk">{{app_name}} &lt;3

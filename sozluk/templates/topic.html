@@ -1,19 +1,19 @@
-{%extends 'layout.html'%}
-{%block title%}{{topic_name}} - {{app_name}}{%endblock%}
+{%extends 'layout.html'-%}
+{%block title-%}{{topic_name}} - {{app_name}}{%endblock-%}
 
-{%block body%}
+{%block body-%}
 <div class="margined_div">
     <h2>{{topic_name}}</h2>
-    {%if not entries%}
+    {%if not entries-%}
     kimse bu basliga girdi yollamamis...
-    {%endif%}
+    {%endif-%}
     {%for entry in entries -%}
     {{render_entry(entry, topic=False)}}
-    {%endfor%}
+    {%endfor-%}
 </div>
 <br>
 <div class="margined_div">
-    <h3>ben {%if entries%}de {%endif%}bu basliga girdi ekleyeyim!</h3>
+    <h3>ben {%if entries-%}de {%endif-%}bu basliga girdi ekleyeyim!</h3>
         <p>girdilerinde kucuk bir cocuk gibi davranma. (ayrica bkz: <a
                 href="{{url_for('topic', name='sozluk yazarlarından beklenenler' )}}">sozluk yazarlarından beklenenler</a>)</p>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
@@ -26,4 +26,4 @@
             </dl>
     </form>
 </div>
-{%endblock%}
+{%endblock-%}

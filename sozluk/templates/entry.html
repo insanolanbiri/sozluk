@@ -1,7 +1,7 @@
-{%extends 'layout.html'%}
-{%block title%}girdi: {{entry.topic}} - {{app_name}}{%endblock%}
+{%extends 'layout.html'-%}
+{%block title-%}girdi: {{entry.topic}} - {{app_name}}{%endblock-%}
 
-{%block body%}
+{%block body-%}
 <div class="margined_div">
     <a href="{{ url_for('topic', name = entry.topic) }}">diger tanimlari da goster</a>
 </div>
@@ -26,4 +26,4 @@
         </form>
     </div>
 </div>
-{%endblock%}
+{%endblock-%}
