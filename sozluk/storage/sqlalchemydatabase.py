@@ -2,13 +2,7 @@ from datetime import UTC, datetime
 
 import sqlalchemy
 from sqlalchemy import delete, select
-from sqlalchemy.orm import (
-    DeclarativeBase,
-    Session,
-    mapped_column,
-    relationship,
-    sessionmaker,
-)
+from sqlalchemy.orm import DeclarativeBase, mapped_column, relationship, sessionmaker
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import Entry, EntryID, EntrySketch, EntryText
@@ -95,7 +89,7 @@ class SQLAlchemyDatabase(SozlukStorage):
             return instance
 
     async def get_entry(self, entry_id: EntryID) -> Entry | None:
-        with Session(self.engine) as session:
+        with self.Session() as session:
             entry = session.scalar(
                 select(SQLAlchemyEntry).where(
                     SQLAlchemyEntry.identifier == entry_id.value
@@ -110,7 +104,7 @@ class SQLAlchemyDatabase(SozlukStorage):
     async def add_entry(
         self, sketch: EntrySketch
     ) -> tuple[EntryAddResponse, EntryID | None]:
-        with Session(self.engine) as session:
+        with self.Session() as session:
             if session.scalar(
                 select(SQLAlchemyEntry).where(
                     (SQLAlchemyEntry.topic.has(SQLAlchemyTopic.name == sketch.topic))
@@ -136,7 +130,7 @@ class SQLAlchemyDatabase(SozlukStorage):
         return EntryAddResponse.SUCCESS, new_id
 
     async def get_topic(self, topic_name: TopicName) -> list[Entry]:
-        with Session(self.engine) as session:
+        with self.Session() as session:
             topic = session.scalar(
                 select(SQLAlchemyTopic).where(SQLAlchemyTopic.name == topic_name)
             )
@@ -149,7 +143,7 @@ class SQLAlchemyDatabase(SozlukStorage):
             return list(entries)
 
     async def get_author(self, author_name: AuthorName) -> list[Entry]:
-        with Session(self.engine) as session:
+        with self.Session() as session:
             author = session.scalar(
                 select(SQLAlchemyAuthor).where(SQLAlchemyAuthor.name == author_name)
             )
@@ -162,7 +156,7 @@ class SQLAlchemyDatabase(SozlukStorage):
             return list(entries)
 
     async def del_entry(self, entry_id: EntryID) -> EntryDeleteResponse:
-        with Session(self.engine) as session:
+        with self.Session() as session:
             result = session.scalar(
                 delete(SQLAlchemyEntry)
                 .where(SQLAlchemyEntry.identifier == entry_id.value)
