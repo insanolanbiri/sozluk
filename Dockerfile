@@ -2,7 +2,7 @@ FROM python:3.13-slim AS builder
 WORKDIR /app
 
 RUN pip install poetry --no-cache-dir
-RUN apt update; apt install uwsgi-core; apt remove uwsgi-core; apt clean
+RUN apt update; apt install -y uwsgi-core; apt remove uwsgi-core; apt clean
 
 RUN mkdir sozluk
 RUN touch sozluk/__init__.py
