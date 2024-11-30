@@ -30,5 +30,5 @@ input[type="submit"] {
     color: #d0d0d0;
 }
 .red_button {
-    background-color: red;
+    background-color: red !important;
 }
