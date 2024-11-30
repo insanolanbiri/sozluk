@@ -14,7 +14,6 @@ psutil = "^6.1.0"
 emoji = "^2.14.0"
 sqlalchemy = "^2.0.36"
 gunicorn = "^23.0.0"
-gevent = "^24.11.1"
 
 
 [tool.poetry.group.dev.dependencies]
