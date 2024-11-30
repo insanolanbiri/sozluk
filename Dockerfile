@@ -15,7 +15,7 @@ FROM python:3.13-slim
 LABEL maintainer="Eren Akgün <iobthedev@outlook.com>"
 WORKDIR /app
 
-RUN apt update; apt install -y uwsgi-core; apt remove -y uwsgi-core; apt clean
+RUN apt update; apt install -y uwsgi-core libexpat1; apt remove -y uwsgi-core; apt clean
 
 COPY --from=builder /app/.venv .venv
 COPY . .
