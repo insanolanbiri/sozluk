@@ -1,3 +1,4 @@
+import logging
 from datetime import timedelta
 from os import getenv, urandom
 
@@ -25,12 +26,16 @@ from sozluk.themes import DEFAULT_THEME, THEMES
 from sozluk.topicname import TopicName
 from sozluk.turkishlowercasedstring import TurkishLowercasedString
 
+DEBUG = bool(getenv("DEBUG"))
+
+logging.basicConfig(level=logging.DEBUG if DEBUG else logging.INFO)
+
 timezone = timedelta(hours=3)
 
 BUILD_COMMIT = getenv("VCS_TAG", "")
 
 url = getenv("DATABASE_URL", "sqlite:///sozluk.sqlite")
-engine = create_engine(url)
+engine = create_engine(url, echo=DEBUG)
 db = SQLAlchemyDatabase(engine)
 
 app = Flask(__name__)
