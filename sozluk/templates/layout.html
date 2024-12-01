@@ -19,7 +19,6 @@
         {%endif-%}
         {{ entry.time(timezone).strftime("%d.%m.%Y %H.%M") }},
         <a href="{{url_for('entry', entry_id=entry.identifier.value)}}">#{{ entry.identifier.value }}</a>
-
     </p>
 </div>
 {%endmacro-%}
