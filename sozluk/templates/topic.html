@@ -5,7 +5,7 @@
 <div class="margined_div">
     <h2>{{topic_name}}</h2>
     {%if not entries-%}
-    kimse bu basliga girdi yollamamis...
+    <p>kimse bu basliga girdi yollamamis...</p>
     {%endif-%}
     {%for entry in entries -%}
     {{render_entry(entry, topic=False)}}
