@@ -1,13 +1,37 @@
 from datetime import UTC, datetime
 
 import sqlalchemy
-from sqlalchemy import delete, select
-from sqlalchemy.orm import DeclarativeBase, mapped_column, relationship, sessionmaker
+from sqlalchemy import event, select
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Session,
+    mapped_column,
+    relationship,
+    sessionmaker,
+)
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import Entry, EntryID, EntrySketch, EntryText
 from sozluk.storage import EntryAddResponse, EntryDeleteResponse, SozlukStorage
 from sozluk.topicname import TopicName
+
+
+@event.listens_for(Session, "after_flush")
+def delete_tag_orphans(session, ctx):
+    flag = False
+
+    for instance in session.deleted:
+        if isinstance(instance, SQLAlchemyEntry):
+            flag = True
+            break
+
+    if flag:
+        session.query(SQLAlchemyAuthor).filter(~SQLAlchemyAuthor.entries.any()).delete(
+            synchronize_session=False
+        )
+        session.query(SQLAlchemyTopic).filter(~SQLAlchemyTopic.entries.any()).delete(
+            synchronize_session=False
+        )
 
 
 class Base(DeclarativeBase):
@@ -150,16 +174,17 @@ class SQLAlchemyDatabase(SozlukStorage):
 
     async def del_entry(self, entry_id: EntryID) -> EntryDeleteResponse:
         with self.Session() as session:
-            result = session.scalar(
-                delete(SQLAlchemyEntry)
-                .where(SQLAlchemyEntry.identifier == entry_id.value)
-                .returning(SQLAlchemyEntry)
+            entry = session.scalar(
+                select(SQLAlchemyEntry).where(
+                    SQLAlchemyEntry.identifier == entry_id.value
+                )
             )
 
-            if not result:
+            if not entry:
                 return EntryDeleteResponse.ENTRY_NOT_FOUND
+            session.delete(entry)
             session.commit()
-            return EntryDeleteResponse.SUCCESS
+        return EntryDeleteResponse.SUCCESS
 
     @property
     async def author_count(self) -> int:
