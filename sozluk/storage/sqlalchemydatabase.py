@@ -29,8 +29,8 @@ class SQLAlchemyEntry(Base):
 
     def to_Entry(self):
         return Entry(
-            topic=self.topic.to_TopicName(),
-            author=self.author.to_AuthorName(),
+            topic=TopicName(self.topic_name),
+            author=AuthorName(self.author_name),
             utc_time=self.utc_time,
             identifier=self.to_EntryID(),
             text=EntryText(self.text),
@@ -49,10 +49,6 @@ class SQLAlchemyTopic(Base):
         "SQLAlchemyEntry", back_populates="topic", cascade="all,delete"
     )
 
-    def to_TopicName(self):
-        return TopicName(self.name)
-
-
 class SQLAlchemyAuthor(Base):
     __tablename__ = "authors"
     name = sqlalchemy.Column(
@@ -61,9 +57,6 @@ class SQLAlchemyAuthor(Base):
     entries = relationship(
         "SQLAlchemyEntry", back_populates="author", cascade="all,delete"
     )
-
-    def to_AuthorName(self):
-        return AuthorName(self.name)
 
 
 class SQLAlchemyDatabase(SozlukStorage):
