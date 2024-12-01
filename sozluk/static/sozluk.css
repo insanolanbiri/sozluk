@@ -74,3 +74,6 @@ input[type="submit"] {
 .entrysubmit {
     font-size: 16pt;
 }
+.red_button {
+    background-color: red !important;
+}

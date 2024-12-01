@@ -29,7 +29,3 @@ input[type="submit"] {
 ::placeholder {
     color: #202020;
 }
-
-.red_button {
-    background-color: red !important;
-}
