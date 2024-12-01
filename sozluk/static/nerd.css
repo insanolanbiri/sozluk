@@ -36,7 +36,10 @@ input[type="submit"] {
 
 p,
 dt,
-dd {
+dd,
+input[type="text"],
+div.list div a,
+textarea {
     font-family: monospace;
     font-size: 12pt;
 }
