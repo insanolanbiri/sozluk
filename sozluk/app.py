@@ -257,10 +257,10 @@ async def search():
 
     query = TurkishLowercasedString(form.query.data)
 
-    topics = db.topic_search_basic(query)
+    results = db.topic_search_basic(query)
 
     return render_template(
-        "search.html", result_topics=await topics, query=query, search_form=form
+        "search.html", result_topics=await results, query=query, search_form=form
     )
 
 
