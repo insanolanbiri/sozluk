@@ -186,18 +186,14 @@ class SQLAlchemyDatabase(SozlukStorage):
     async def author_count(self) -> int:
         with self.Session() as session:
             return session.scalar(
-                select(sqlalchemy.func.count())
-                .select_from(SQLAlchemyAuthor)
-                .where(SQLAlchemyAuthor.entries.any())
+                select(sqlalchemy.func.count()).select_from(SQLAlchemyAuthor)
             )
 
     @property
     async def topic_count(self) -> int:
         with self.Session() as session:
             return session.scalar(
-                select(sqlalchemy.func.count())
-                .select_from(SQLAlchemyTopic)
-                .where(SQLAlchemyTopic.entries.any())
+                select(sqlalchemy.func.count()).select_from(SQLAlchemyTopic)
             )
 
     @property
