@@ -9,7 +9,6 @@ readme = "README.md"
 python = "^3.13"
 flask = {extras = ["async"], version = "^3.1.0"}
 flask-wtf = "^1.2.2"
-aiofiles = "^24.1.0"
 psutil = "^6.1.0"
 emoji = "^2.14.0"
 sqlalchemy = "^2.0.36"
