@@ -148,27 +148,23 @@ class SQLAlchemyDatabase(SozlukStorage):
 
     async def get_topic(self, topic_name: TopicName) -> list[Entry]:
         with self.Session() as session:
-            topic = session.scalar(
-                select(SQLAlchemyTopic).where(SQLAlchemyTopic.name == topic_name)
+            entries = session.scalars(
+                select(SQLAlchemyEntry).where(SQLAlchemyEntry.topic_name == topic_name)
             )
 
-            if topic is None:
-                return []
-
-            entries = map(lambda sql_entry: sql_entry.to_Entry(), topic.entries)
+            entries = map(lambda sql_entry: sql_entry.to_Entry(), entries)
 
             return list(entries)
 
     async def get_author(self, author_name: AuthorName) -> list[Entry]:
         with self.Session() as session:
-            author = session.scalar(
-                select(SQLAlchemyAuthor).where(SQLAlchemyAuthor.name == author_name)
+            entries = session.scalars(
+                select(SQLAlchemyEntry).where(
+                    SQLAlchemyEntry.author_name == author_name
+                )
             )
 
-            if author is None:
-                return []
-
-            entries = map(lambda sql_entry: sql_entry.to_Entry(), author.entries)
+            entries = map(lambda sql_entry: sql_entry.to_Entry(), entries)
 
             return list(entries)
 
