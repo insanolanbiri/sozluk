@@ -253,3 +253,12 @@ class SQLAlchemyDatabase(SozlukStorage):
                 select(SQLAlchemyEntry).order_by(sqlalchemy.func.random()).limit(limit)
             )
             return list(map(lambda row: row.to_Entry(), rows))
+
+    def fix_crlf(self):
+        with self.Session() as session:
+            entries = session.scalars(select(SQLAlchemyEntry))
+
+            for entry in entries:
+                entry.text = str(entry.text).replace("\r\n", "\n")
+
+            session.commit()
