@@ -1,5 +1,6 @@
 import logging
 from datetime import timedelta
+from http import HTTPStatus
 from os import getenv, urandom
 
 import psutil
@@ -307,3 +308,61 @@ async def theme():
     if form.validate_on_submit():
         session["theme"] = form.theme.data
     return render_template("theme.html", form=ThemeForm(theme=session["theme"]))
+
+
+@app.route("/send", methods=["POST"])
+@csrf.exempt
+async def put():
+    """A simple API for sending entries.
+
+    Request data is like the following:
+    "
+    topic: hello
+    author: me
+    an entry.
+
+    third line of the entry.
+    "
+    """
+
+    if request.content_type != "text/plain":
+        return (
+            f"content-type expected to be text/plain, got {request.content_type or 'nothing'} instead",
+            HTTPStatus.UNSUPPORTED_MEDIA_TYPE,
+        )
+
+    submission = request.data.decode()
+
+    print(submission)
+
+    parts = submission.split("\n")
+
+    topic_line = parts[0]
+    author_line = parts[1]
+    entry_text = "\n".join(parts[2:])
+    topic_name = topic_line.lstrip("topic: ")
+    author_name = author_line.lstrip("author: ")
+
+    if topic_name == topic_line:
+        return "check topic line (first line)", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
+
+    if author_name == author_line:
+        return "check author line (second line)", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
+
+    try:
+        topic_name = TopicName(topic_name)
+        author_name = AuthorName(author_name)
+        entry_text = EntryText(entry_text)
+    except ValueError as e:
+        return str(e), HTTPStatus.BAD_REQUEST
+
+    sketch = EntrySketch(topic=topic_name, author=author_name, text=entry_text)
+    print(sketch)
+
+    db_response, entry_id = await db.add_entry(sketch)
+
+    match db_response:
+        case EntryAddResponse.SUCCESS:
+            return f"ok. entry_id={entry_id.value}"
+        case EntryAddResponse.DEFINITION_EXISTS:
+            return "definiton exists", HTTPStatus.CONFLICT
