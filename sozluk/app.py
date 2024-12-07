@@ -337,6 +337,9 @@ async def put():
 
     parts = submission.split("\n")
 
+    if len(parts) < 3:
+        return "not enough lines", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
+
     topic_line = parts[0]
     author_line = parts[1]
     entry_text = "\n".join(parts[2:])
