@@ -40,7 +40,7 @@ db = SQLAlchemyDatabase(engine)
 
 app = Flask(__name__)
 
-app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 10800
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = timedelta(hours=3).seconds
 
 
 app.secret_key = urandom(32)
