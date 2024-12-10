@@ -54,7 +54,7 @@ def inject_constants():
         app_name="sozluk",
         timezone=timezone,
         commit=BUILD_COMMIT,
-        theme_stylesheet=THEMES.get(session.get("theme", DEFAULT_THEME)),
+        theme_stylesheet=DEFAULT_THEME,
     )
 
 
@@ -227,16 +227,6 @@ async def stats():
     )
 
 
-@app.route("/theemoji")
-async def theemoji():
-    return render_template("theemoji.html")
-
-
-@app.route("/about")
-async def about():
-    return render_template("about.html")
-
-
 @app.route("/random")
 async def random():
     random_entries = db.get_random_entries(limit=10)
@@ -297,75 +287,3 @@ async def topics():
         abort(404)
 
     return render_template("topics.html", topics=latest_topics, page=page)
-
-
-@app.route("/theme", methods=["GET", "POST"])
-@csrf.exempt
-async def theme():
-    form = ThemeForm()
-    if "theme" not in session:
-        session["theme"] = DEFAULT_THEME
-    if form.validate_on_submit():
-        session["theme"] = form.theme.data
-    return render_template("theme.html", form=ThemeForm(theme=session["theme"]))
-
-
-@app.route("/send", methods=["POST"])
-@csrf.exempt
-async def put():
-    """A simple API for sending entries.
-
-    Request data is like the following:
-    "
-    topic: hello
-    author: me
-    an entry.
-
-    third line of the entry.
-    "
-    """
-
-    if request.content_type != "text/plain":
-        return (
-            f"content-type expected to be text/plain, got {request.content_type or 'nothing'} instead",
-            HTTPStatus.UNSUPPORTED_MEDIA_TYPE,
-        )
-
-    submission = request.data.decode()
-
-    print(submission)
-
-    parts = submission.split("\n")
-
-    if len(parts) < 3:
-        return "not enough lines", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
-
-    topic_line = parts[0]
-    author_line = parts[1]
-    entry_text = "\n".join(parts[2:])
-    topic_name = topic_line.lstrip("topic: ")
-    author_name = author_line.lstrip("author: ")
-
-    if topic_name == topic_line:
-        return "check topic line (first line)", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
-
-    if author_name == author_line:
-        return "check author line (second line)", HTTPStatus.UNSUPPORTED_MEDIA_TYPE
-
-    try:
-        topic_name = TopicName(topic_name)
-        author_name = AuthorName(author_name)
-        entry_text = EntryText(entry_text)
-    except ValueError as e:
-        return str(e), HTTPStatus.BAD_REQUEST
-
-    sketch = EntrySketch(topic=topic_name, author=author_name, text=entry_text)
-    print(sketch)
-
-    db_response, entry_id = await db.add_entry(sketch)
-
-    match db_response:
-        case EntryAddResponse.SUCCESS:
-            return f"ok. entry_id={entry_id.value}"
-        case EntryAddResponse.DEFINITION_EXISTS:
-            return "definiton exists", HTTPStatus.CONFLICT
