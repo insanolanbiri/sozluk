@@ -26,6 +26,7 @@ ENV VCS_TAG=${VCS_TAG}
 
 ENV DATABASE_URL='sqlite:////data/sozluk.sqlite'
 ENV THREADS=''
+ENV SECRET_KEY=''
 
 EXPOSE 8080
 ENTRYPOINT [ "./entrypoint.sh" ]

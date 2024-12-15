@@ -44,7 +44,7 @@ app = Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = timedelta(hours=3).seconds
 
 
-app.secret_key = urandom(32)
+app.secret_key = getenv("SECRET_KEY", urandom(32).hex())
 csrf = CSRFProtect(app)
 
 

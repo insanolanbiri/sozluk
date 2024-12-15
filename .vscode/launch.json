@@ -13,7 +13,8 @@
                 "FLASK_APP": "sozluk/app.py",
                 "FLASK_DEBUG": "1",
                 "VCS_TAG": "development",
-                "DEBUG": "true"
+                "DEBUG": "true",
+                "SECRET_KEY": "development_secret_key"
             },
             "args": [
                 "run",
