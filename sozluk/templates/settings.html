@@ -1,0 +1,20 @@
+{%extends 'layout.html'-%}
+{%block title-%}son dokunuslar - {{app_name}}{%endblock-%}
+
+{%block body-%}
+<h2>son dokunuslar</h2>
+<div class="draw margined_div">
+    <h3>tema sec!</h3>
+    <form action="{{url_for('theme')}}" method="post">
+        {{render_form_field(themeform.theme)}}
+        {{render_form_field(themeform.submit)}}
+    </form>
+</div>
+<div class="draw margined_div">
+    <h3>fokus</h2>
+        <form action="{{url_for('focus')}}" method="post">
+            {{render_form_field(focusform.focus)}}
+            {{render_form_field(focusform.submit)}}
+        </form>
+</div>
+{%endblock-%}

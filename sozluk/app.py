@@ -20,7 +20,7 @@ from sqlalchemy import create_engine
 
 from sozluk.authorname import AuthorName
 from sozluk.entry import EntryID, EntrySketch, EntryText
-from sozluk.forms import EntryForm, NukeEntryForm, SearchForm, ThemeForm
+from sozluk.forms import EntryForm, FocusForm, NukeEntryForm, SearchForm, ThemeForm
 from sozluk.storage import EntryAddResponse, EntryDeleteResponse
 from sozluk.storage.sqlalchemydatabase import SQLAlchemyDatabase
 from sozluk.themes import DEFAULT_THEME, THEMES
@@ -55,6 +55,7 @@ def inject_constants():
         timezone=timezone,
         commit=BUILD_COMMIT,
         theme_stylesheet=THEMES.get(session.get("theme", DEFAULT_THEME)),
+        focus=session.get("focus", False),
     )
 
 
@@ -299,15 +300,40 @@ async def topics():
     return render_template("topics.html", topics=latest_topics, page=page)
 
 
-@app.route("/theme", methods=["GET", "POST"])
+@app.route("/settings", methods=["GET", "POST"])
+@csrf.exempt
+async def settings():
+    if "theme" not in session:
+        session["theme"] = DEFAULT_THEME
+
+    if "focus" not in session:
+        session["focus"] = False
+
+    return render_template(
+        "settings.html",
+        themeform=ThemeForm(theme=session["theme"]),
+        focusform=FocusForm(focus=session["focus"]),
+    )
+
+
+@app.route("/theme", methods=["POST"])
 @csrf.exempt
 async def theme():
     form = ThemeForm()
-    if "theme" not in session:
-        session["theme"] = DEFAULT_THEME
     if form.validate_on_submit():
         session["theme"] = form.theme.data
-    return render_template("theme.html", form=ThemeForm(theme=session["theme"]))
+
+    return redirect(url_for("settings"))
+
+
+@app.route("/focus", methods=["POST"])
+@csrf.exempt
+async def focus():
+    form = FocusForm()
+    if form.validate_on_submit():
+        session["focus"] = form.focus.data
+
+    return redirect(url_for("settings"))
 
 
 @app.route("/send", methods=["POST"])

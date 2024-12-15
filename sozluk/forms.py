@@ -99,3 +99,11 @@ class ThemeForm(FlaskForm):
 
     theme = RadioField("tema", [], choices=THEMES.keys())
     submit = SubmitField("okudum onayliyorum", render_kw={"value": "son kararim"})
+
+
+class FocusForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    focus = BooleanField("yalniz kalmak istiyorum")
+    submit = SubmitField("kurtarici buton", render_kw={"value": "bana yardim et"})

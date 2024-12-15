@@ -2,6 +2,7 @@
 {%block title-%}{{app_name}}{%endblock-%}
 
 {%block body-%}
+{%if not focus-%}
 <div class="margined_div">
     <p>{{app_name}}. beklenmedik derecede serbest bir ortam.</p>
     <p>bu sayfaya gelen herkesin (sen dahil! yasasin!) istedigi konu hakkinda istedigi isim (genclerin tabiri ile
@@ -12,8 +13,9 @@
         var) ancak sozlukteki bilgilerin pek de sana gore olmamasi gibi bir durum soz
         konusu ise kimsenin seni burada olmaya zorlamadigini bilmeni isterim.</p>
 </div>
+{%endif-%}
 
-<div class="draw margined_div">
+<div class="{%if not focus-%}draw {%endif-%}margined_div">
     <h2>girdi yolla!</h2>
     <form method="post" action="{{ url_for('add_entry') }}" enctype="multipart/form-data">
         {{ entry_form.csrf_token() }}
@@ -27,6 +29,7 @@
                     beklenenler</a>)</p>
     </form>
 </div>
+{%if not focus-%}
 <hr>
 <div class="draw margined_div">
     <h2>el feneri</h2>
@@ -42,4 +45,5 @@
     <h2><a href="{{url_for('random')}}">rastgele</a></h2>
     <h2><a href="{{url_for('authors')}}">yazarlar</a></h2>
 </div>
+{%endif-%}
 {%endblock-%}

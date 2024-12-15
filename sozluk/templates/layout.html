@@ -44,6 +44,9 @@
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='sozluk.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename=theme_stylesheet)}}">
+    {%if focus-%}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='focus.css')}}">
+    {%endif-%}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
 </head>
@@ -68,9 +71,13 @@
     {%endblock-%}
     <hr class="footer_hr">
     <p>
-        <a href="{{url_for('about')}}">hakkinda</a>&emsp;<a href="https://github.com/insanolanbiri/sozluk">{{app_name}} &lt;3
-            acik kaynak</a>&emsp;<a href="{{url_for('theme')}}">tema</a>&emsp;<a
-                href="{{url_for('stats')}}">istatistikler</a>&emsp;<a href="{{url_for('theemoji')}}">:bilgenhocaemojisi:</a>
+    {%if focus-%}
+    <a href="{{url_for('settings')}}">fokus.</a>
+    {%else-%}
+    <a href="{{url_for('about')}}">hakkinda</a>&emsp;<a href="https://github.com/insanolanbiri/sozluk">{{app_name}} &lt;3
+        acik kaynak</a>&emsp;<a href="{{url_for('settings')}}">son dokunuslar</a>&emsp;<a
+        href="{{url_for('stats')}}">istatistikler</a>&emsp;<a href="{{url_for('theemoji')}}">:bilgenhocaemojisi:</a>
+    {%endif-%}
     </p>
 </body>
 
